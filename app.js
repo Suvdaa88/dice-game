@@ -73,7 +73,7 @@ document.querySelector(".btn-hold").addEventListener("click", function(){
  document.getElementById("score-" + activePlayer).textContent =scores[activePlayer];
  
  // 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
- if(scores[activePlayer]>=10){
+ if(scores[activePlayer]>=100){
      isGameOver=true;
  
      document.getElementById('name-'+activePlayer).textContent="WINNER!!!"; // gehdee tsaashaagaa toglosoor bna
