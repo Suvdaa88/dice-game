@@ -1,4 +1,5 @@
-
+// Togloom duussan esehiig hadgalah tolwiin huwisagch
+var isGameOver;
 
 // Шоогоо буулгадаг болцгооё
 var activePlayer;
@@ -13,6 +14,8 @@ var diceDom=document.querySelector(".dice");
 initGame();
 // togloom ehluuleh function
 function initGame(){
+    // togloom ehllee gdg tolowt oruulna
+    isGameOver=false;
     // Тоглогчийн ээлжийг хадгалах хувьсагч, negdugeer toglogchiig 1-р тоглогч 0, 2-р тоглогч 1 гэе.
 activePlayer=0;
 
@@ -43,7 +46,8 @@ diceDom.style.display='none';
 }
 
 document.querySelector(".btn-roll").addEventListener("click",function(){
-    var diceNumber= Math.floor(Math.random()*6)+1 ;
+    if(isGameOver!==true){
+        var diceNumber= Math.floor(Math.random()*6)+1 ;
 
     diceDom.style.display="block";
     diceDom.src='dice-'+diceNumber+'.png';
@@ -55,32 +59,41 @@ document.querySelector(".btn-roll").addEventListener("click",function(){
     }else { // active playeriig 0 lohoos omno currentiig 00loson  bh ystoi
         switchToNextPlayer();
     }
+    }else {
+        alert("Тоглоом дууслаа. NEW GAME товчийг дарж шинээр эхлэнэ үү")
+    }
 });
 // Hold  товчийг дарах үед оноогоо хадгалдаг болгох
 
 document.querySelector(".btn-hold").addEventListener("click", function(){
-    // ug toglogch ni tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
-    scores[activePlayer]=scores[activePlayer]+roundScore;
-// ug toglogch hojson esehiig shalgah
-document.getElementById("score-" + activePlayer).textContent =scores[activePlayer];
-
-// 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
-if(scores[activePlayer]>=10){
-    document.getElementById('name-'+activePlayer).textContent="WINNER!!!"; // gehdee tsaashaagaa toglosoor bna
-    document.querySelector('.player-'+activePlayer+'-panel').classList.add("winner");
-    document.querySelector('.player-'+activePlayer+'-panel').classList.remove("active");
-
-    // herhen zogsooh we
-}else {
-    switchToNextPlayer();
-
-}
-
-    // Delgets deer onoog ni oorchilno 
-document.getElementById('score-'+activePlayer).textContent=scores[activePlayer];
-
-
+   if(isGameOver!==true){
+ // ug toglogch ni tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
+ scores[activePlayer]=scores[activePlayer]+roundScore;
+ // ug toglogch hojson esehiig shalgah
+ document.getElementById("score-" + activePlayer).textContent =scores[activePlayer];
+ 
+ // 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
+ if(scores[activePlayer]>=10){
+     isGameOver=true;
+ 
+     document.getElementById('name-'+activePlayer).textContent="WINNER!!!"; // gehdee tsaashaagaa toglosoor bna
+     document.querySelector('.player-'+activePlayer+'-panel').classList.add("winner");
+     document.querySelector('.player-'+activePlayer+'-panel').classList.remove("active");
+ 
+     // herhen zogsooh we
+ }else {
+     switchToNextPlayer();
+ 
+ }
+ 
+     // Delgets deer onoog ni oorchilno 
+ document.getElementById('score-'+activePlayer).textContent=scores[activePlayer];
+ 
+ 
    
+   } else {
+    alert("Тоглоом дууслаа. NEW GAME товчийг дарж шинээр эхлэнэ үү")
+   }
 });
 // Ene function nitogloh eeljiig daraachiin toglogch ruu shiljuulne
 function switchToNextPlayer(){
