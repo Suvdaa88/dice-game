@@ -29,24 +29,53 @@ document.querySelector(".btn-roll").addEventListener("click",function(){
      roundScore=roundScore+diceNumber;
      document.getElementById('current-'+activePlayer).textContent=roundScore;
     }else { // active playeriig 0 lohoos omno currentiig 00loson  bh ystoi
-        roundScore=0;
-        document.getElementById('current-'+activePlayer).textContent=0;
-
-        //1 buuusan tul toglogchiin eeljiig ene hesegt solij ogno
-        // Herew idewhtei toglogch 0 bwal idewhtei toglogchiig 1 bolgo, ugui bol idewhtei toglogchiig 0 bolgo
-        activePlayer===0 ? (activePlayer=1) : (activePlayer=0);
-          // if(activePlayer===0){
-        //     activePlayer=1;
-        // }else {
-        //     activePlayer=0;
-        // }
-
-        // Улаан цэгийг шилжоолэх
-        document.querySelector('.player-0-panel').classList.toggle("active");
-        document.querySelector('.player-1-panel').classList.toggle("active");
-
-        // Shoog tur alga bolgoh
-        diceDom.style.display="none"
+        switchToNextPlayer();
     }
 });
 // Hold  товчийг дарах үед оноогоо хадгалдаг болгох
+
+document.querySelector(".btn-hold").addEventListener("click", function(){
+    // ug toglogch ni tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
+    scores[activePlayer]=scores[activePlayer]+roundScore;
+// ug toglogch hojson esehiig shalgah
+scores[activePlayer];
+if(scores[activePlayer]>=10){
+    document.getElementById('name-'+activePlayer).textContent="WINNER!!!"; // gehdee tsaashaagaa toglosoor bna
+    document.querySelector('.player-'+activePlayer+'-panel').classList.add("winner");
+    document.querySelector('.player-'+activePlayer+'-panel').classList.remove("active");
+
+    // herhen zogsooh we
+}else {
+    switchToNextPlayer();
+
+}
+
+    // Delgets deer onoog ni oorchilno 
+document.getElementById('score-'+activePlayer).textContent=scores[activePlayer];
+
+
+   
+});
+// Ene function nitogloh eeljiig daraachiin toglogch ruu shiljuulne
+function switchToNextPlayer(){
+     // Eeljiin onoog ni 0 lono.
+     roundScore=0;
+     document.getElementById('current-'+activePlayer).textContent=0;
+ 
+     //toglogchiin eeljiig solino.
+     activePlayer===0 ? (activePlayer=1) : (activePlayer=0);
+    
+     document.querySelector('.player-0-panel').classList.toggle("active");
+     document.querySelector('.player-1-panel').classList.toggle("active");
+      // Shoog tur alga bolgoh
+      diceDom.style.display="none"
+   
+
+}
+
+// 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
+
+// Shineer ttogloom ehluuleh
+document.querySelector('.btn-new').addEventListener('click', function(){
+    
+})
