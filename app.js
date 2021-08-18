@@ -1,23 +1,47 @@
-// Тоглогчийн ээлжийг хадгалах хувьсагч, negdugeer toglogchiig 1-р тоглогч 0, 2-р тоглогч 1 гэе.
-var activePlayer=0;
+
+
+// Шоогоо буулгадаг болцгооё
+var activePlayer;
 
 
 // Тоглогчийн оноог хадгалах хувьсагч
-var scores=[0,0];
+var scores;
 
 //  Идэвхтэй тоглогчийн ээлжийн оноог цуглуулах хувьсагч
-var roundScore=0;
+var roundScore;
+var diceDom=document.querySelector(".dice");
+initGame();
+// togloom ehluuleh function
+function initGame(){
+    // Тоглогчийн ээлжийг хадгалах хувьсагч, negdugeer toglogchiig 1-р тоглогч 0, 2-р тоглогч 1 гэе.
+activePlayer=0;
 
-// Шоо буухад аль талаараа буухыг хадгалга. 1-6 хүртэл санамсаргүй утга авдаг болгоно
+
+// Тоглогчийн оноог хадгалах хувьсагч
+scores=[0,0];
+
+//  Идэвхтэй тоглогчийн ээлжийн оноог цуглуулах хувьсагч
+roundScore=0;
+
 // <div class="player-name" id="name-0">Player 1</div>
-var diceNumber= Math.floor(Math.random()*6)+1 ; 
 // DOM өөрчлөх
 window.document.getElementById('score-0').textContent='0';document.getElementById('score-1').textContent='0';
 document.getElementById('current-0').textContent='0';document.getElementById('current-1').textContent='0';
+// toglogchdiin neriig butsaaj gargah
+document.getElementById('name-0').textContent='Player 1';
+document.getElementById('name-1').textContent='Player 2';
 
-// Шоогоо буулгадаг болцгооё
-var diceDom=document.querySelector(".dice");
+document.querySelector('.player-0-panel').classList.remove("winner");
+document.querySelector('.player-1-panel').classList.remove("winner");
+
+document.querySelector('.player-0-panel').classList.remove("active");
+document.querySelector('.player-1-panel').classList.remove("active");
+document.querySelector('.player-0-panel').classList.add("active");
+
+
 diceDom.style.display='none';
+}
+
 document.querySelector(".btn-roll").addEventListener("click",function(){
     var diceNumber= Math.floor(Math.random()*6)+1 ;
 
@@ -38,7 +62,9 @@ document.querySelector(".btn-hold").addEventListener("click", function(){
     // ug toglogch ni tsugluulsan eeljnii onoog global onoon deer ni nemj ogno.
     scores[activePlayer]=scores[activePlayer]+roundScore;
 // ug toglogch hojson esehiig shalgah
-scores[activePlayer];
+document.getElementById("score-" + activePlayer).textContent =scores[activePlayer];
+
+// 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
 if(scores[activePlayer]>=10){
     document.getElementById('name-'+activePlayer).textContent="WINNER!!!"; // gehdee tsaashaagaa toglosoor bna
     document.querySelector('.player-'+activePlayer+'-panel').classList.add("winner");
@@ -73,9 +99,7 @@ function switchToNextPlayer(){
 
 }
 
-// 100 hurwel daraagiin toglogchiig shideh ym bhgui bolno shuud bayr hurgey gene
+
 
 // Shineer ttogloom ehluuleh
-document.querySelector('.btn-new').addEventListener('click', function(){
-    
-})
+document.querySelector('.btn-new').addEventListener('click', initGame);
