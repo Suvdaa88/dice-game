@@ -1,5 +1,5 @@
 // Тоглогчийн ээлжийг хадгалах хувьсагч, negdugeer toglogchiig 1-р тоглогч 0, 2-р тоглогч 1 гэе.
-var activePlayer=1;
+var activePlayer=0;
 
 
 // Тоглогчийн оноог хадгалах хувьсагч
@@ -23,10 +23,30 @@ document.querySelector(".btn-roll").addEventListener("click",function(){
 
     diceDom.style.display="block";
     diceDom.src='dice-'+diceNumber+'.png';
-    
+    // Тоглогчийн ээлжийн тоог нэмэх, Буусан тоо 1 ээс ялгаатай бол ээлжийн оноог нэмэгдүүлнэ.
+    if(diceNumber!==1){
+        // 1 ees ylgaatai buulaa
+     roundScore=roundScore+diceNumber;
+     document.getElementById('current-'+activePlayer).textContent=roundScore;
+    }else { // active playeriig 0 lohoos omno currentiig 00loson  bh ystoi
+        roundScore=0;
+        document.getElementById('current-'+activePlayer).textContent=0;
+
+        //1 buuusan tul toglogchiin eeljiig ene hesegt solij ogno
+        // Herew idewhtei toglogch 0 bwal idewhtei toglogchiig 1 bolgo, ugui bol idewhtei toglogchiig 0 bolgo
+        activePlayer===0 ? (activePlayer=1) : (activePlayer=0);
+          // if(activePlayer===0){
+        //     activePlayer=1;
+        // }else {
+        //     activePlayer=0;
+        // }
+
+        // Улаан цэгийг шилжоолэх
+        document.querySelector('.player-0-panel').classList.toggle("active");
+        document.querySelector('.player-1-panel').classList.toggle("active");
+
+        // Shoog tur alga bolgoh
+        diceDom.style.display="none"
+    }
 });
-
-
-
-// console.log('Шоо : '+ dice)
-// Тоглогчдын ээлжийг солих
+// Hold  товчийг дарах үед оноогоо хадгалдаг болгох
